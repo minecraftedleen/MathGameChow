@@ -4,15 +4,17 @@ public class MathGame {
 
     private Player player1;
     private Player player2;
+    private Player player3;
     private Player currentPlayer;
     private Player winner;
     private boolean gameOver;
     private Scanner scanner;
 
     // create MathGame object
-    public MathGame(Player player1, Player player2, Scanner scanner) {
+    public MathGame(Player player1, Player player2, Player player3, Scanner scanner) {
         this.player1 = player1;
         this.player2 = player2;
+        this.player3 = player3;
         this.scanner = scanner;
         currentPlayer = null; // will get assigned at start of game
         winner = null; // will get assigned when a Player wins
@@ -28,7 +30,7 @@ public class MathGame {
 
     // plays a round of the math game
     public void playRound() {
-        chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer to either player1 or player2
+        chooseStartingPlayer();  // this helper method (shown below) sets currentPlayer to either player1, player2 or player3
         while (!gameOver) {
             printGameState();   // this helper method (shown below) prints the state of the Game
             System.out.println("Current player: " + currentPlayer.getName());
@@ -51,6 +53,7 @@ public class MathGame {
         System.out.println("Current Scores:");
         System.out.println(player1.getName() + ": " + player1.getScore());
         System.out.println(player2.getName() + ": " + player2.getScore());
+        System.out.println(player3.getName() + ": " + player3.getScore());
         System.out.println("--------------------------------------");
     }
 
@@ -67,11 +70,13 @@ public class MathGame {
 
     // randomly chooses one of the Player objects to be the currentPlayer
     private void chooseStartingPlayer() {
-        int randNum = (int) (Math.random() * 2) + 1;
+        int randNum = (int) (Math.random() * 3) + 1;
         if (randNum == 1) {
             currentPlayer = player1;
-        } else {
+        } else if (randNum == 2) {
             currentPlayer = player2;
+        } else {
+            currentPlayer = player3;
         }
     }
 
