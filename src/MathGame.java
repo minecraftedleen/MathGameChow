@@ -9,6 +9,7 @@ public class MathGame {
     private Player winner;
     private boolean gameOver;
     private Scanner scanner;
+    private int loseStreak = 0;
 
     // create MathGame object
     public MathGame(Player player1, Player player2, Player player3, Scanner scanner) {
@@ -37,12 +38,14 @@ public class MathGame {
             boolean correct = askQuestion();  // this helper method (shown below) asks a question and returns T or F
             if (correct) {
                 System.out.println("Correct!");
+                loseStreak = 0;
                 currentPlayer.incrementScore();  // this increments the currentPlayer's score
                 swapPlayers();  // this helper method (shown below) sets currentPlayer to the other Player
             } else {
                 System.out.println("INCORRECT!");
-                gameOver = true;
+                loseStreak += 1;
                 determineWinner();
+                swapPlayers();
             }
         }
     }
@@ -61,7 +64,9 @@ public class MathGame {
     public void resetGame() {
         player1.reset(); // this method resets the player
         player2.reset();
+        player3.reset();
         gameOver = false;
+        loseStreak = 0;
         currentPlayer = null;
         winner = null;
     }
@@ -119,6 +124,8 @@ public class MathGame {
     private void swapPlayers() {
         if (currentPlayer == player1) {
             currentPlayer = player2;
+        } else if (currentPlayer == player2) {
+            currentPlayer = player3;
         } else {
             currentPlayer = player1;
         }
@@ -126,10 +133,15 @@ public class MathGame {
 
     // sets the winner when the game ends based on the player that missed the question
     private void determineWinner() {
-        if (currentPlayer == player1) {
-            winner = player2;
-        } else {
-            winner = player1;
+        if (loseStreak == 2) {
+            if (currentPlayer == player1) {
+                winner = player2;
+            } else if (currentPlayer == player2) {
+                winner = player3;
+            } else {
+                winner = player1;
+            }
+            gameOver = true;
         }
     }
 }

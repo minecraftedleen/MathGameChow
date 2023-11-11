@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class MathGameUI {
+public class  MathGameUI {
 
     private MathGame game;
     private Scanner scan;
