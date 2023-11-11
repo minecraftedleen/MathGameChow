@@ -136,11 +136,19 @@ public class MathGame {
         if (loseStreak == 2) {
             if (currentPlayer == player1) {
                 winner = player2;
+                player1.resetWinStreak();
+                player3.resetWinStreak();
             } else if (currentPlayer == player2) {
                 winner = player3;
+                player1.incrementWinStreak();
+                player2.resetWinStreak();
             } else {
                 winner = player1;
+                player2.resetWinStreak();
+                player3.resetWinStreak();
             }
+            winner.incrementWinStreak();
+            winner.setHighScore();
             gameOver = true;
         }
     }
